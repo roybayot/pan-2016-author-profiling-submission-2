@@ -81,32 +81,6 @@ def getAllModels(modelDir):
     f.close()
     return oneModel
 
-#    f = open(oneFile,'rb')
-#    oneModel = pickle.load(f)
-#    f.close()
-#    models.update(oneModel)
-#    return models
-
-
-#    for oneFile in pklFiles:
-#        #language = getLang(oneFile)
-#        
-#        f = open(oneFile,'rb')
-#        oneModel = pickle.load(f)
-#        f.close()
-##        models.update(oneModel)
-#    return oneModel
-#
-# 	models = []
-# 	for oneFile in pklFiles:
-# 		language = getLang(oneFile)
-# 		
-# 		f = open(oneFile,'rb')
-# 		oneModel = pickle.load(f)
-# 		f.close()
-# 		models.append(oneModel)
-		
-#	return models
 
 def dirExists(inputDir):
 	if os.path.exists(inputDir):
