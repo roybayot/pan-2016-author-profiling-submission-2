@@ -252,7 +252,7 @@ def main(argv):
     current_working_dir = os.getcwd() + '/'
     model_dir = "word2vec-models/wikipedia-only-trained-on-my-machine/"
 
-    classification_models = []
+    classification_models = [0,0,0,0,0,0]
 #
     
     relations = {'dutch': {'truth_file': 'summary-dutch-truth.txt',\
@@ -296,11 +296,23 @@ def main(argv):
 
         for task in tasks:
             y = train[task]
-            if (lang in ['dutch'] and (task in ['gender'])):
-                classification_models.append({lang: {task: []} })
+            if (lang in ['dutch'] and (task in ['age'])):
+                classification_models[2] = {lang: {task: []} }
             else:
                 one_model = trainOne(X, y, lang, task)
-                classification_models.append({lang: {task: one_model} })
+
+                if lang == "english" and task == "age":
+                    classification_models[0] = {lang: {task: one_model} }
+                elif lang == "english" and task == "gender":
+                    classification_models[1] = {lang: {task: one_model} }
+                elif lang == "dutch" and task == "gender":
+                    classification_models[3] = {lang: {task: one_model} }
+                elif lang == "spanish" and task == "age":
+                    classification_models[4] = {lang: {task: one_model} }
+                else:
+                    classification_models[5] = {lang: {task: one_model} }
+
+                #classification_models.append({lang: {task: one_model} })
                 
     writeModels(classification_models, modelDir)
             
