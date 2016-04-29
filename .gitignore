@@ -1,2 +1,5 @@
 dataset
 word2vec-models
+model_dir
+output
+*.txt
