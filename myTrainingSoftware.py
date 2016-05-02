@@ -252,8 +252,7 @@ def main(argv):
     current_working_dir = os.getcwd() + '/'
     model_dir = "word2vec-models/wikipedia-only-trained-on-my-machine/"
 
-    classification_models = [0,0,0,0,0,0]
-#
+    classification_models = {}
     
     relations = {'dutch': {'truth_file': 'summary-dutch-truth.txt',\
                         'model_file': 'wiki.nl.tex.d100.model'
@@ -265,61 +264,48 @@ def main(argv):
                             'model_file': 'wiki.es.tex.d100.model'
                             }
                 }
-#
     inputDir, outputDir = getRelevantDirectories(argv)
+    print "INPUT DIR", inputDir
+    print "OUTPUT DIR", outputDir 
     allPaths = getAllFilenamesWithAbsPath(inputDir)
     allTruthText = getTruthTextFiles(allPaths)
+    print "ALL TRUTH TEXT", allTruthText
     generateTruthTexts(allPaths, allTruthText, outputDir, langs)
 
     modelDir = os.getcwd() + '/' + outputDir 
 
-#open each file and make a model
-    for lang in langs:
+    for f in allTruthText:
+        a = f.strip().split("/")
+        lang = [ lang for lang in langs if lang in f]
+        print "Processing: ", lang[0]
+        lang = lang[0]
 
-        # part where i find vectors
         truth_file = relations[lang]['truth_file']
         model_file = current_working_dir + model_dir + relations[lang]['model_file']
-
 
         truth_file = current_working_dir + outputDir + "/" + truth_file
         train = pd.read_csv(truth_file, header=0, delimiter="\t", quoting=1)
         print "Done reading file"
         clean_train_data = train['text']
-
+        
         model = gensim.models.Word2Vec.load(model_file)
-
+        
         trainDataVecs, trashedWords = getAvgFeatureVecs( clean_train_data,\
                                                          model,\
                                                          num_features )
-
         X = trainDataVecs
 
         for task in tasks:
-            y = train[task]
-            if (lang in ['dutch'] and (task in ['age'])):
-                classification_models[2] = {lang: {task: []} }
-            else:
-                one_model = trainOne(X, y, lang, task)
-
-                if lang == "english" and task == "age":
-                    classification_models[0] = {lang: {task: one_model} }
-                elif lang == "english" and task == "gender":
-                    classification_models[1] = {lang: {task: one_model} }
-                elif lang == "dutch" and task == "gender":
-                    classification_models[3] = {lang: {task: one_model} }
-                elif lang == "spanish" and task == "age":
-                    classification_models[4] = {lang: {task: one_model} }
-                else:
-                    classification_models[5] = {lang: {task: one_model} }
-
-                #classification_models.append({lang: {task: one_model} })
-                
-    writeModels(classification_models, modelDir)
+            key_name = lang + "_" + task
             
+            if lang == "dutch" and task == "age":
+                classification_models[key_name] = []
+            else:
+                y = train[task]
+                one_model = trainOne(X, y, lang, task)
+                classification_models[key_name] = one_model
 
-
-
-
+    writeModels(classification_models, modelDir)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
