@@ -193,7 +193,8 @@ def makeFeatureVec(words, model, num_features):
 
  	
 def classifyTestFiles(models, inputDir):
-    current_working_dir = os.getcwd() + '/'
+#    current_working_dir = os.getcwd() + '/'
+    current_working_dir = './'
     model_dir = "word2vec-models/wikipedia-only-trained-on-my-machine/"
     num_features = 100
     tasks =["age", "gender"]

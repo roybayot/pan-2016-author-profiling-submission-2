@@ -249,7 +249,8 @@ def main(argv):
     langs=["english", "dutch", "spanish"]
     tasks=["age", "gender"]
     scoring_function = "accuracy"
-    current_working_dir = os.getcwd() + '/'
+#    current_working_dir = os.getcwd() + '/'
+    current_working_dir = './
     model_dir = "word2vec-models/wikipedia-only-trained-on-my-machine/"
 
     classification_models = {}
