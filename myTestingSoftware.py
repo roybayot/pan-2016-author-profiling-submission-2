@@ -196,6 +196,7 @@ def classifyTestFiles(models, inputDir):
     current_working_dir = os.getcwd() + '/'
     model_dir = "word2vec-models/wikipedia-only-trained-on-my-machine/"
     num_features = 100
+    tasks =["age", "gender"]
 
     relations = {'dutch': {'truth_file': 'summary-dutch-truth.txt',\
                            'model_file': 'wiki.nl.tex.d100.model'
@@ -212,19 +213,13 @@ def classifyTestFiles(models, inputDir):
     allTestFiles = getAllXmlFiles(allTestFiles)
     
     lingua = getLanguage(allTestFiles[0])
+#    import ipdb; ipdb.set_trace()
     if lingua == 'EN':
         tempLang = 'english'
-        clf_age    = models[0]['english']['age']
-        clf_gender = models[1]['english']['gender']
 	if lingua == 'NL':
 		tempLang = 'dutch'
-        clf_age    = models[2]['dutch']['age']
-        clf_gender = models[3]['dutch']['gender']
 	if lingua == 'ES':
 		tempLang = 'spanish'
-        clf_age    = models[4]['spanish']['age']
-        clf_gender = models[5]['spanish']['gender']
-
 
     filename = relations[tempLang]['model_file']
     filename = current_working_dir + model_dir + filename 
@@ -249,41 +244,34 @@ def classifyTestFiles(models, inputDir):
         temp['thisType']     = thisType
         temp['thisLanguage'] = thisLanguage
         descriptors, trash = makeFeatureVec(oneLine, word2vec_model, num_features)
-        
-        try:
-            gender_pred = clf_gender.predict(descriptors.reshape(1,-1))
-        except ValueError:
-            print oneFile
-            print "gender_pred:", gender_pred
-            print "descriptors:", descriptors
-            gender_pred = 0
+
+        for task in tasks:
+            key_name = tempLang + "_" + task
             
-        if gender_pred == 0:
-            temp['gender'] = 'male'
-        else:
-            temp['gender'] = 'female'
+            if tempLang == "dutch" and task == "age":
+                pred_value = 5
+            else:
+                clf = models[key_name]
+                pred_value = clf.predict(descriptors.reshape(1,-1))
 
-        try:
-            age_pred = clf_age.predict(descriptors.reshape(1,-1))
-        except ValueError:
-            print oneFile
-            print "age_pred:", age_pred
-            print "descriptors:", descriptors
-            age_pred = 0
-        
-        if age_pred == 0:
-            temp['age'] = '18-24'
-        elif age_pred == 1:
-            temp['age'] = '25-34'
-        elif age_pred == 2:
-            temp['age'] = '35-49'
-        elif age_pred == 3:
-            temp['age'] = '50-64'
-        elif age_pred == 4:
-            temp['age'] = '65-xx'
-        else:
-            temp['age'] = 'XX-XX'
-
+            if task == "age":
+                if pred_value == 0:
+                    temp['age'] = '18-24'
+                elif pred_value == 1:
+                    temp['age'] = '25-34'
+                elif pred_value == 2:
+                    temp['age'] = '35-49'
+                elif pred_value == 3:
+                    temp['age'] = '50-64'
+                elif pred_value == 4:
+                    temp['age'] = '65-xx'
+                else:
+                    temp['age'] = 'XX-XX'
+            else:
+                if pred_value == 0:
+                    temp['gender'] = 'male'
+                else:
+                    temp['gender'] = 'female'
         results[oneFile] =  temp
     return results
 	
