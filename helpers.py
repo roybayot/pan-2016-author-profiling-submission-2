@@ -84,6 +84,12 @@ def makeFeatureVec(words, model, num_features):
     nwords = 0.
     index2word_set = set(model.index2word)
     wordsNotInDict = []
+
+    try:
+        words = words.split(" ")
+    except AttributeError:
+        featureVec = np.random.rand(num_features)
+        return featureVec, wordsNotInDict
     
     for word in words:
         if word in index2word_set:
@@ -91,7 +97,11 @@ def makeFeatureVec(words, model, num_features):
             featureVec = np.add(featureVec,model[word])
         else:
             wordsNotInDict.append(word)
-    featureVec = np.divide(featureVec,nwords)
+
+    if nwords == 0.:
+        featureVec = np.random.rand(num_features)
+    else:
+        featureVec = np.divide(featureVec,nwords)
     return featureVec, wordsNotInDict
 
 def getAvgFeatureVecs(all_texts, model, num_features):
