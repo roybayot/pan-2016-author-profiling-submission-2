@@ -204,7 +204,7 @@ def deriveOutputFilename(oneTruthFile, langs):
 
 def generateTruthTexts(allPaths, allTruthText, outputDir, langs):
     if not os.path.exists(outputDir):
-		os.makedirs(outputDir)	
+        os.makedirs(outputDir)
     
     for oneTruthFile in allTruthText:
         outputFilename = deriveOutputFilename(oneTruthFile, langs)
@@ -236,12 +236,12 @@ def trainOne(X,y,lang,task):
         clf.fit(X, y)
     
     return clf
-	
+
 def writeModels(models, outputDir):
-	fileName = outputDir + "/models.pkl"
-	f = open(fileName, 'wb')
-	pickle.dump(models, f)
-	f.close()
+    fileName = outputDir + "/models.pkl"
+    f = open(fileName, 'wb')
+    pickle.dump(models, f)
+    f.close()
 
 
 def main(argv):
