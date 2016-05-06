@@ -64,7 +64,7 @@ def getAllModels(modelDir):
 #only_files = [ f for f in listdir(modelDir) if isfile(join(modelDir,f)) ]
     allFiles = absoluteFilePaths(modelDir)
     pklFiles = [f for f in allFiles if isPKL(join(modelDir,f))]
-    pklFiles = [f for f in pklFiles if isNotVectorizer(join(modelDir,f))]
+    #pklFiles = [f for f in pklFiles if isNotVectorizer(join(modelDir,f))]
     
     models = {}
     oneFile = pklFiles[0]
