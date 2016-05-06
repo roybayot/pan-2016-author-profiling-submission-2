@@ -22,6 +22,8 @@ from sklearn import metrics
 from sklearn import preprocessing
 from bs4 import BeautifulSoup
 
+import helpers
+
 
 from os import listdir
 from os.path import isfile, join
@@ -118,15 +120,19 @@ def getAllXmlFiles(allTestFiles):
     return allTestFiles	
 
 def getLanguage(oneFile):
-    tree = ET.parse(oneFile)
-    root = tree.getroot()
+    parser = helpers.MyXMLParser(encoding='utf-8')
+    xml_etree = ET.parse(oneFile, parser=parser)
+    #tree = ET.parse(oneFile)
+    root = xml_etree.getroot()
     a = root.attrib
     return a['lang']
 
 def getTweetsToLine(oneFile):
     allText = ""
+    parser = helpers.MyXMLParser(encoding='utf-8')
     try:
-        tree = ET.parse(oneFile)
+        tree = ET.parse(oneFile, parser=parser)
+        #tree = ET.parse(oneFile)
         print "Filename: %s SUCCESS!" % oneFile
     except:
         e = sys.exc_info()[0]
