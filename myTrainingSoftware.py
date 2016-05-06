@@ -23,6 +23,8 @@ from sklearn import metrics
 from sklearn import preprocessing
 from bs4 import BeautifulSoup
 
+import helpers
+
 
 reload(sys)
 sys.setdefaultencoding("ISO-8859-1")
@@ -154,9 +156,12 @@ def writeOneSummary(outputFilename, oneTruthFile, allPaths, realOutputFilename):
 # 		print fileName
         thisGender 	 	  = gender[a[1]]
         thisAgeGroup 	  = ageGroup[a[2]]
+        
+        parser = helpers.MyXMLParser(encoding='utf-8')
 
         try:
-            tree = ET.parse(fileName)
+            tree = ET.parse(fileName, parser=parser)
+            #tree = ET.parse(fileName)
             #print "Filename: %s SUCCESS!" % fileName
 
         except:
