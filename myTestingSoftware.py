@@ -57,9 +57,9 @@ def isPKL(fileName):
         return True
     else:
         return False
-	
+
 def getAllModels(modelDir):
-# 	only_files = [ f for f in listdir(modelDir) if isfile(join(modelDir,f)) ]
+#only_files = [ f for f in listdir(modelDir) if isfile(join(modelDir,f)) ]
     allFiles = absoluteFilePaths(modelDir)
     pklFiles = [f for f in allFiles if isPKL(join(modelDir,f))]
     pklFiles = [f for f in pklFiles if isNotVectorizer(join(modelDir,f))]
@@ -71,7 +71,6 @@ def getAllModels(modelDir):
     f.close()
     
     return oneModel
-
 
 def dirExists(inputDir):
     if os.path.exists(inputDir):
@@ -109,7 +108,7 @@ def getAllTestFiles(inputDir):
     if dirExists(inputDir):
         allTestFiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
         allTestFiles = [ f for f in allTestFiles if isXML(f) ]
-		return allTestFiles
+        return allTestFiles
     else:
         sys.exit()
 
@@ -179,8 +178,6 @@ def makeFeatureVec(words, model, num_features):
         featureVec = np.divide(featureVec,nwords)
     return featureVec, wordsNotInDict
 
-
- 	
 def classifyTestFiles(models, inputDir):
 #    current_working_dir = os.getcwd() + '/'
     current_working_dir = './'
@@ -206,10 +203,10 @@ def classifyTestFiles(models, inputDir):
 #    import ipdb; ipdb.set_trace()
     if lingua == 'EN':
         tempLang = 'english'
-	if lingua == 'NL':
-		tempLang = 'dutch'
-	if lingua == 'ES':
-		tempLang = 'spanish'
+    if lingua == 'NL':
+        tempLang = 'dutch'
+    if lingua == 'ES':
+        tempLang = 'spanish'
 
     filename = relations[tempLang]['model_file']
     filename = current_working_dir + model_dir + filename 
@@ -264,25 +261,23 @@ def classifyTestFiles(models, inputDir):
                     temp['gender'] = 'female'
         results[oneFile] =  temp
     return results
-	
-def writeOneResult(key, value, outputDir):
-	key = key.strip().split("/")
-	cwd = os.getcwd()
-	path = cwd + "/" + outputDir + "/" + key[-1]
-# 	import pdb; pdb.set_trace()
-	thisId					= value['thisId']
-	thisType				= value['thisType']
-	thisLanguage			= value['thisLanguage']
-	predictedGender 	 	= value['gender']
-	predictedAge    	 	= value['age']
 
-	
-	text_to_write = """<author id='%s'\n\ttype='%s'\n\tlang='%s'\n\tage_group='%s'\n\tgender='%s'\n/>"""% (thisId, thisType, thisLanguage, predictedAge, predictedGender)
-	# Open a file
-	fo = open(path, "w")
-	fo.write( text_to_write );
-	fo.close()
-	
+def writeOneResult(key, value, outputDir):
+    key = key.strip().split("/")
+    cwd = os.getcwd()
+    path = cwd + "/" + outputDir + "/" + key[-1]
+    thisId					= value['thisId']
+    thisType				= value['thisType']
+    thisLanguage			= value['thisLanguage']
+    predictedGender 	 	= value['gender']
+    predictedAge    	 	= value['age']
+    
+    text_to_write = """<author id='%s'\n\ttype='%s'\n\tlang='%s'\n\tage_group='%s'\n\tgender='%s'\n/>"""% (thisId, thisType, thisLanguage, predictedAge, predictedGender)
+    
+    fo = open(path, "w")
+    fo.write( text_to_write );
+    fo.close()
+
 def makeDirectory(path):
     try:
         os.makedirs(path)
@@ -291,7 +286,7 @@ def makeDirectory(path):
             raise
         else:
             print "\nBE CAREFUL! Directory %s already exists." % path
-		
+
 def writeAllResults(results, outputDir):
     if (not dirExists(outputDir)):
         print "Creating new directory."
@@ -303,17 +298,16 @@ def getLang(inputText):
     langs = ["english", "dutch", "spanish"]
     lang = [ lang for lang in langs if lang in inputText]
     return lang[0]
-	
+
 def main(argv):
     inputDir, outputDir, modelDir = getRelevantDirectories(argv)
     print 'Input directory is "',  inputDir
-    print 'Model directory is "',  modelDir   
+    print 'Model directory is "',  modelDir
     print 'Output directory is "', outputDir
     
     models = getAllModels(modelDir)
     results = classifyTestFiles(models, inputDir)
     writeAllResults(results, outputDir)
 
-   
 if __name__ == "__main__":
     main(sys.argv[1:])
