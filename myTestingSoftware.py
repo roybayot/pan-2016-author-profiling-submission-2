@@ -143,7 +143,7 @@ def getTweetsToLine(oneFile):
         for doc in a:
             clean = bleach.clean(doc, tags=[], strip=True)
             allText = allText + clean
-        allText = allText.encode('utf-8')«
+        allText = allText.encode('utf-8')
     return allText
 
 def clean_text(raw_text):
