@@ -31,47 +31,37 @@ sys.setdefaultencoding("ISO-8859-1")
 
 
 def getRelevantDirectories(argv):
-	inputDir = ''
-	outputDir = ''
-	modelDir = ''
-	try:
-		opts, args = getopt.getopt(argv,"hi:o:m:",["ifile=","ofile=","mfile="])
-	except getopt.GetoptError:
-		print './myTestingSoftware.py -i <inputdirectory> -m <modelfile> -o <outputdirectory>'
-		sys.exit(2)
-	for opt, arg in opts:
-		if opt == '-h':
-			print './myTestingSoftware.py -i <inputdirectory> -m <modelfile> -o <outputdirectory>'
-			sys.exit()
-		elif opt in ("-i", "--ifile"):
-			inputDir = arg
-		elif opt in ("-m", "--mfile"):
-			modelDir = arg
-		elif opt in ("-o", "--ofile"):
-			outputDir = arg   
-	return inputDir, outputDir, modelDir
+    inputDir = ''
+    outputDir = ''
+    modelDir = ''
+    try:
+        opts, args = getopt.getopt(argv,"hi:o:m:",["ifile=","ofile=","mfile="])
+    except getopt.GetoptError:
+        print './myTestingSoftware.py -i <inputdirectory> -m <modelfile> -o <outputdirectory>'
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print './myTestingSoftware.py -i <inputdirectory> -m <modelfile> -o <outputdirectory>'
+            sys.exit()
+        elif opt in ("-i", "--ifile"):
+            inputDir = arg
+        elif opt in ("-m", "--mfile"):
+            modelDir = arg
+        elif opt in ("-o", "--ofile"):
+            outputDir = arg
+    return inputDir, outputDir, modelDir
 
 def isPKL(fileName):
-	a = fileName.strip().split('.')
-	if a[1] == 'pkl':
-		return True
-	else:
-		return False
-
-def isNotVectorizer(fileName):
-	a = fileName.strip().split('.')
-	if 'tfidf' in fileName:
-	    return False
-        elif 'bigram' in fileName:
-            return False
-        else:
-	    return True
-
+    a = fileName.strip().split('.')
+    if a[1] == 'pkl':
+        return True
+    else:
+        return False
 	
 def getAllModels(modelDir):
 # 	only_files = [ f for f in listdir(modelDir) if isfile(join(modelDir,f)) ]
     allFiles = absoluteFilePaths(modelDir)
-    pklFiles = [f for f in allFiles if isPKL(join(modelDir,f))]	
+    pklFiles = [f for f in allFiles if isPKL(join(modelDir,f))]
     pklFiles = [f for f in pklFiles if isNotVectorizer(join(modelDir,f))]
     
     models = {}
@@ -79,84 +69,83 @@ def getAllModels(modelDir):
     f = open(oneFile, 'rb')
     oneModel = pickle.load(f)
     f.close()
+    
     return oneModel
 
 
 def dirExists(inputDir):
-	if os.path.exists(inputDir):
-		return True
-	elif os.access(os.path.dirname(inputDir), os.W_OK):
-		print "Cannot access the directory. Check for privileges."
-		return False
-	else:
-		print "Directory does not exist."
-		return False
+    if os.path.exists(inputDir):
+        return True
+    elif os.access(os.path.dirname(inputDir), os.W_OK):
+        print "Cannot access the directory. Check for privileges."
+        return False
+    else:
+        print "Directory does not exist."
+        return False
 
 def isXML(f):
-	a = f.strip().split('.')
-	if a[1] == 'xml':
-		return True
-	else:
-		return False
+    a = f.strip().split('.')
+    if a[1] == 'xml':
+        return True
+    else:
+        return False
 
 def absoluteFilePaths(directory):
-	allPaths = []
-	for dirpath,_,filenames in os.walk(directory):
-		for f in filenames:
-			onePath = os.path.abspath(os.path.join(dirpath, f))
-			allPaths.append(onePath)
-# 			yield os.path.abspath(os.path.join(dirpath, f))
-	return allPaths
+    allPaths = []
+    for dirpath,_,filenames in os.walk(directory):
+        for f in filenames:
+            onePath = os.path.abspath(os.path.join(dirpath, f))
+            allPaths.append(onePath)
+    return allPaths
 
 def getAllFilenamesWithAbsPath(inputDir):
-	if dirExists(inputDir):
-		allPaths = absoluteFilePaths(inputDir)
-		return allPaths
-	else:
-		sys.exit()
+    if dirExists(inputDir):
+        allPaths = absoluteFilePaths(inputDir)
+        return allPaths
+    else:
+        sys.exit()
 
 def getAllTestFiles(inputDir):
-	if dirExists(inputDir):
-		allTestFiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
-		allTestFiles = [ f for f in allTestFiles if isXML(f) ]
+    if dirExists(inputDir):
+        allTestFiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
+        allTestFiles = [ f for f in allTestFiles if isXML(f) ]
 		return allTestFiles
-	else:
-		sys.exit()
+    else:
+        sys.exit()
 
 def getAllXmlFiles(allTestFiles):
-	allTestFiles = [ f for f in allTestFiles if isfile(f) ]
-	allTestFiles = [ f for f in allTestFiles if isXML(f) ]
-	return allTestFiles	
+    allTestFiles = [ f for f in allTestFiles if isfile(f) ]
+    allTestFiles = [ f for f in allTestFiles if isXML(f) ]
+    return allTestFiles	
 
 def getLanguage(oneFile):
-	tree = ET.parse(oneFile)
-	root = tree.getroot()
-	a = root.attrib
-	return a['lang']
+    tree = ET.parse(oneFile)
+    root = tree.getroot()
+    a = root.attrib
+    return a['lang']
 
 def getTweetsToLine(oneFile):
-	allText = ""
-	try:
-		tree = ET.parse(oneFile)
-#  		print "Filename: %s SUCCESS!" % oneFile
-	except:
-		e = sys.exc_info()[0]
-		print "Filename: %s Error: %s" % (oneFile, e)
-	else:
-		root = tree.getroot()
+    allText = ""
+    try:
+        tree = ET.parse(oneFile)
+        print "Filename: %s SUCCESS!" % oneFile
+    except:
+        e = sys.exc_info()[0]
+        print "Filename: %s Error: %s" % (oneFile, e)
+    else:
+        root = tree.getroot()
         a = []
-
+        
         for x in root.iter("document"):
             a.append(x.text)
-
+            
         allText = ""
-
+        
         for doc in a:
             clean = bleach.clean(doc, tags=[], strip=True)
             allText = allText + clean
-        allText = allText.encode('utf-8')
-
-	return allText
+        allText = allText.encode('utf-8')«
+    return allText
 
 def clean_text(raw_text):
     review_text = BeautifulSoup(raw_text).get_text()
@@ -295,39 +284,36 @@ def writeOneResult(key, value, outputDir):
 	fo.close()
 	
 def makeDirectory(path):
-	try:
-		os.makedirs(path)
-	except OSError as exception:
-		if exception.errno != errno.EEXIST:
-			raise
-		else:
-			print "\nBE CAREFUL! Directory %s already exists." % path
+    try:
+        os.makedirs(path)
+    except OSError as exception:
+        if exception.errno != errno.EEXIST:
+            raise
+        else:
+            print "\nBE CAREFUL! Directory %s already exists." % path
 		
 def writeAllResults(results, outputDir):
-	if (not dirExists(outputDir)):
-		print "Creating new directory."
-		makeDirectory(outputDir)
-	for key, value in results.iteritems():
-#  		print key, ":", value
-# 		import pdb; pdb.set_trace()
-		writeOneResult(key, value, outputDir)	
+    if (not dirExists(outputDir)):
+        print "Creating new directory."
+        makeDirectory(outputDir)
+    for key, value in results.iteritems():
+        writeOneResult(key, value, outputDir)	
 
 def getLang(inputText):
-	langs = ["english", "dutch", "spanish"]
-	lang = [ lang for lang in langs if lang in inputText]
-	return lang[0]
+    langs = ["english", "dutch", "spanish"]
+    lang = [ lang for lang in langs if lang in inputText]
+    return lang[0]
 	
 def main(argv):
-	inputDir, outputDir, modelDir = getRelevantDirectories(argv)
- 	print 'Input directory is "',  inputDir
- 	print 'Model directory is "',  modelDir   
- 	print 'Output directory is "', outputDir
-	
-	models = getAllModels(modelDir)
-	results = classifyTestFiles(models, inputDir)
- 	print results
-	writeAllResults(results, outputDir)
+    inputDir, outputDir, modelDir = getRelevantDirectories(argv)
+    print 'Input directory is "',  inputDir
+    print 'Model directory is "',  modelDir   
+    print 'Output directory is "', outputDir
+    
+    models = getAllModels(modelDir)
+    results = classifyTestFiles(models, inputDir)
+    writeAllResults(results, outputDir)
 
    
 if __name__ == "__main__":
-	main(sys.argv[1:])
+    main(sys.argv[1:])
