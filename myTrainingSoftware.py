@@ -22,6 +22,7 @@ from sklearn import svm
 from sklearn import metrics
 from sklearn import preprocessing
 from bs4 import BeautifulSoup
+from xml.etree.ElementTree import ParseError
 
 import helpers
 
@@ -159,11 +160,20 @@ def writeOneSummary(outputFilename, oneTruthFile, allPaths, realOutputFilename):
         
         parser = helpers.MyXMLParser(encoding='utf-8')
 
+        print "opening:", fileName
+
         try:
             tree = ET.parse(fileName, parser=parser)
             #tree = ET.parse(fileName)
             #print "Filename: %s SUCCESS!" % fileName
-
+        except ParseError:
+            with open(fileName, 'r') as f:
+                read_data = f.read()
+                read_data = read_data.replace("&#11;", "")
+            
+            with open('temp_file.xml', 'w') as g:
+                g.write(read_data)
+            tree = ET.parse('temp_file.xml')
         except:
             e = sys.exc_info()[0]
             print "Filename: %s Error: %s" % (fileName, e)
@@ -189,6 +199,7 @@ def writeOneSummary(outputFilename, oneTruthFile, allPaths, realOutputFilename):
 # 			print "Out of loop, writing"								
             data = [fileName, thisGender, thisAgeGroup, allText]
             tsv_writer(data, realOutputFilename)
+            print "done with file"
 # 			print "Finish writing one line"
 
 def tsv_writer(data, path):
