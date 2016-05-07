@@ -2,6 +2,8 @@ import xml.etree.ElementTree as ET
 import sys
 import re
 
+from xml.etree.ElementTree import ParseError
+
 class MyXMLParser(ET.XMLParser):
 
     rx = re.compile("&#([0-9]+);|&#x([0-9a-fA-F]+);")
@@ -29,4 +31,18 @@ class MyXMLParser(ET.XMLParser):
 parser = MyXMLParser(encoding='utf-8')
 #xml_filename = sys.argv[1]
 xml_filename = "6300ad90bbcee31349ffa0a071ca2041.xml"
-xml_etree = ET.parse(xml_filename, parser=parser)
+
+try:
+    xml_etree = ET.parse(xml_filename, parser=parser)
+except ParseError:
+    with open(xml_filename, 'r') as f:
+        read_data = f.read()
+    read_data = read_data.replace("&#11;", "")
+    
+    with open('temp_file.xml', 'w') as g:
+        g.write(read_data)
+    xml_etree = ET.parse('temp_file.xml')
+except:
+    e = sys.exc_info()[0]
+    print "Error: %s" % e
+
