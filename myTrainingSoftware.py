@@ -290,7 +290,8 @@ def main(argv):
     print "ALL TRUTH TEXT", allTruthText
     generateTruthTexts(allPaths, allTruthText, outputDir, langs)
 
-    modelDir = os.getcwd() + '/' + outputDir 
+    #modelDir = os.getcwd() + '/' + outputDir 
+    modelDir = outputDir 
 
     for f in allTruthText:
         a = f.strip().split("/")
