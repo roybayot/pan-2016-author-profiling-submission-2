@@ -23,7 +23,7 @@ from sklearn import preprocessing
 from bs4 import BeautifulSoup
 
 import helpers
-
+from xml.etree.ElementTree import ParseError
 
 from os import listdir
 from os.path import isfile, join
@@ -121,8 +121,16 @@ def getAllXmlFiles(allTestFiles):
 
 def getLanguage(oneFile):
     parser = helpers.MyXMLParser(encoding='utf-8')
-    xml_etree = ET.parse(oneFile, parser=parser)
-    #tree = ET.parse(oneFile)
+    try:
+        xml_etree = ET.parse(oneFile, parser=parser)
+        #tree = ET.parse(oneFile)
+    except ParseError:
+        with open(oneFile, 'r') as f:
+            read_data = f.read()
+            read_data = read_data.replace("&#11;", "")
+        with open('temp_file.xml', 'w') as g:
+            g.write(read_data)
+        xml_etree = ET.parse('temp_file.xml')
     root = xml_etree.getroot()
     a = root.attrib
     return a['lang']
@@ -134,6 +142,13 @@ def getTweetsToLine(oneFile):
         tree = ET.parse(oneFile, parser=parser)
         #tree = ET.parse(oneFile)
         print "Filename: %s SUCCESS!" % oneFile
+    except ParseError:
+        with open(oneFile, 'r') as f:
+            read_data = f.read()
+            read_data = read_data.replace("&#11;", "")
+        with open('temp_file.xml', 'w') as g:
+            g.write(read_data)
+        tree = ET.parse('temp_file.xml')
     except:
         e = sys.exc_info()[0]
         print "Filename: %s Error: %s" % (oneFile, e)
@@ -202,7 +217,8 @@ def classifyTestFiles(models, inputDir):
                             }
                 }
     results = {}
-    allTestFiles = getAllFilenamesWithAbsPath(inputDir)
+    print "get all filenames with abs path", current_working_dir+inputDir
+    allTestFiles = getAllFilenamesWithAbsPath(current_working_dir+inputDir)
     allTestFiles = getAllXmlFiles(allTestFiles)
     
     lingua = getLanguage(allTestFiles[0])
@@ -310,9 +326,14 @@ def main(argv):
     print 'Input directory is "',  inputDir
     print 'Model directory is "',  modelDir
     print 'Output directory is "', outputDir
+
+    print "getting models"
     
     models = getAllModels(modelDir)
+
+    print "classifying"
     results = classifyTestFiles(models, inputDir)
+    print "writing"
     writeAllResults(results, outputDir)
 
 if __name__ == "__main__":
