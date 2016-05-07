@@ -3,3 +3,4 @@ word2vec-models
 model_dir
 output
 *.txt
+*.xml
