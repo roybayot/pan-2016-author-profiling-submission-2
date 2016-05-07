@@ -217,7 +217,8 @@ def generateTruthTexts(allPaths, allTruthText, outputDir, langs):
         some_fill_in = outputFilename.split("/")
 
         print some_fill_in[-1]
-        realOutputFilename = os.getcwd() + '/' + outputDir + '/' + some_fill_in[-1] 
+        #realOutputFilename = os.getcwd() + '/' + outputDir + '/' + some_fill_in[-1] 
+        realOutputFilename = outputDir + '/' + some_fill_in[-1] 
         print outputFilename
         writeOneSummary(outputFilename, oneTruthFile, allPaths, realOutputFilename)
 
@@ -289,7 +290,8 @@ def main(argv):
         truth_file = relations[lang]['truth_file']
         model_file = current_working_dir + model_dir + relations[lang]['model_file']
 
-        truth_file = current_working_dir + outputDir + "/" + truth_file
+        #truth_file = current_working_dir + outputDir + "/" + truth_file
+        truth_file = outputDir + "/" + truth_file
         train = pd.read_csv(truth_file, header=0, delimiter="\t", quoting=1)
         print "Done reading file"
         clean_train_data = train['text']
