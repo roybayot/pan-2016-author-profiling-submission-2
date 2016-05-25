@@ -1,0 +1,97 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem{TrainWord2Vec}
+Training word2vec model on english wikipedia by gensim.
+  \url{http://textminingonline.com/training-word2vec-model-on-english-wikipedia-by-gensim},
+  accessed: 2010-05-23
+
+\bibitem{alvarezinaoe}
+{\'A}lvarez-Carmona, M.A., L{\'o}pez-Monroy, A.P., Montes-y G{\'o}mez, M.,
+  Villase{\~n}or-Pineda, L., Jair-Escalante, H.: Inaoe’s participation at
+  pan’15: Author profiling task
+
+\bibitem{argamon2009automatically}
+Argamon, S., Koppel, M., Pennebaker, J.W., Schler, J.: Automatically profiling
+  the author of an anonymous text. Communications of the ACM  52(2),  119--123
+  (2009)
+
+\bibitem{gonzaleztweets}
+Gonz{\'a}lez-Gallardo, C.E., Montes, A., Sierra, G., N{\'u}{\~n}ez-Ju{\'a}rez,
+  J.A., Salinas-L{\'o}pez, A.J., Ek, J.: Tweets classification using corpus
+  dependent tags, character and pos n-grams
+
+\bibitem{lopezusing}
+L{\'o}pez-Monroy, A.P., Montes-y G{\'o}mez, M., Escalante, H.J.,
+  Villase{\~n}or-Pineda, L.: Using intra-profile information for author
+  profiling
+
+\bibitem{lopez2013inaoe}
+Lopez-Monroy, A.P., Gomez, M.M.y., Escalante, H.J., Villasenor-Pineda, L.,
+  Villatoro-Tello, E.: Inaoe’s participation at pan’13: Author profiling
+  task. In: CLEF 2013 Evaluation Labs and Workshop (2013)
+
+\bibitem{maharjansimple}
+Maharjan, S., Shrestha, P., Solorio, T.: A simple approach to author profiling
+  in mapreduce
+
+\bibitem{marquardt2014age}
+Marquardt, J., Farnadi, G., Vasudevan, G., Moens, M.F., Davalos, S., Teredesai,
+  A., De~Cock, M.: Age and gender identification in social media. Proceedings
+  of CLEF 2014 Evaluation Labs  (2014)
+
+\bibitem{meina2013ensemble}
+Meina, M., Brodzinska, K., Celmer, B., Czok{\'o}w, M., Patera, M., Pezacki, J.,
+  Wilk, M.: Ensemble-based classification for author profiling using various
+  features. Notebook Papers of CLEF  (2013)
+
+\bibitem{mikolov2013efficient}
+Mikolov, T., Chen, K., Corrado, G., Dean, J.: Efficient estimation of word
+  representations in vector space. arXiv preprint arXiv:1301.3781  (2013)
+
+\bibitem{mikolov2013distributed}
+Mikolov, T., Sutskever, I., Chen, K., Corrado, G.S., Dean, J.: Distributed
+  representations of words and phrases and their compositionality. In: Advances
+  in neural information processing systems. pp. 3111--3119 (2013)
+
+\bibitem{rangel2015overview}
+Rangel, F., Rosso, P., Potthast, M., Stein, B., Daelemans, W.: Overview of the
+  3rd author profiling task at pan 2015. In: CLEF (2015)
+
+\bibitem{rangel2014overview}
+Rangel, F., Rosso, P., Chugur, I., Potthast, M., Trenkmann, M., Stein, B.,
+  Verhoeven, B., Daelemans, W.: Overview of the 2nd author profiling task at
+  pan 2014. In: Proceedings of the Conference and Labs of the Evaluation Forum
+  (Working Notes) (2014)
+
+\bibitem{rangel2013overview}
+Rangel, F., Rosso, P., Moshe~Koppel, M., Stamatatos, E., Inches, G.: Overview
+  of the author profiling task at pan 2013. In: CLEF Conference on Multilingual
+  and Multimodal Information Access Evaluation. pp. 352--365. CELCT (2013)
+
+\bibitem{rehurek_lrec}
+{\v R}eh{\r u}{\v r}ek, R., Sojka, P.: {Software Framework for Topic Modelling
+  with Large Corpora}. In: {Proceedings of the LREC 2010 Workshop on New
+  Challenges for NLP Frameworks}. pp. 45--50. ELRA, Valletta, Malta (May 2010),
+  \url{http://is.muni.cz/publication/884893/en}
+
+\bibitem{santosh2013author}
+Santosh, K., Bansal, R., Shekhar, M., Varma, V.: Author profiling: Predicting
+  age and gender from blogs. Notebook Papers of CLEF  (2013)
+
+\bibitem{schler2006effects}
+Schler, J., Koppel, M., Argamon, S., Pennebaker, J.W.: Effects of age and
+  gender on blogging. In: AAAI Spring Symposium: Computational Approaches to
+  Analyzing Weblogs. vol.~6, pp. 199--205 (2006)
+
+\bibitem{villenadaedalus}
+Villena-Rom{\'a}n, J., Gonz{\'a}lez-Crist{\'o}bal, J.C.: Daedalus at pan 2014:
+  Guessing tweet author's gender and age
+
+\bibitem{weren6exploring}
+Weren, E.R., Moreira, V.P., de~Oliveira, J.P.: Exploring information retrieval
+  features for author profiling—notebook for pan at clef 2014. Cappellato et
+  al.[6]
+
+\end{thebibliography}

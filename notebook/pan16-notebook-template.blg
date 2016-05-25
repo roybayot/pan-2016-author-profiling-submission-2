@@ -1,0 +1,90 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: pan16-notebook-template.aux
+The style file: splncs03.bst
+Database file #1: citations.bib
+Repeated entry---line 144 of file citations.bib
+ : @inproceedings{rangel2015overview
+ :                                  ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 237 of file citations.bib
+ : 
+ : %        AUTHOR             = {Francisco Rangel and Paolo Rosso and Martin Potthast and Benno Stein and Walter Daelemans},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 250 of file citations.bib
+ : 
+ : %        AUTHOR             = {Francisco Rangel and Paolo Rosso and Martin Potthast and Benno Stein and Walter Daelemans},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 267 of file citations.bib
+ : 
+ : %  booktitle = {Working Notes Papers of the CLEF 2015 Evaluation Labs},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 277 of file citations.bib
+ : %@inproceedings{rangel2015overview
+ :                                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 332 of file citations.bib
+ : @inproceedings{schler2006effects
+ :                                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 389 of file citations.bib
+ : @inproceedings{rangel2015overview
+ :                                  ,
+I'm skipping whatever remains of this entry
+Warning--to sort, need author or key in TrainWord2Vec
+Warning--empty journal in alvarezinaoe
+Warning--empty year in alvarezinaoe
+Warning--empty journal in gonzaleztweets
+Warning--empty year in gonzaleztweets
+Warning--empty journal in lopezusing
+Warning--empty year in lopezusing
+Warning--empty journal in maharjansimple
+Warning--empty year in maharjansimple
+Warning--empty journal in villenadaedalus
+Warning--empty year in villenadaedalus
+Warning--empty year in weren6exploring
+You've used 19 entries,
+            2785 wiz_defined-function locations,
+            672 strings with 8423 characters,
+and the built_in function-call counts, 9924 in all, are:
+= -- 735
+> -- 452
+< -- 7
++ -- 186
+- -- 166
+* -- 656
+:= -- 1341
+add.period$ -- 20
+call.type$ -- 19
+change.case$ -- 156
+chr.to.int$ -- 0
+cite$ -- 31
+duplicate$ -- 860
+empty$ -- 803
+format.name$ -- 184
+if$ -- 2048
+int.to.chr$ -- 0
+int.to.str$ -- 19
+missing$ -- 207
+newline$ -- 62
+num.names$ -- 36
+pop$ -- 451
+preamble$ -- 1
+purify$ -- 121
+quote$ -- 0
+skip$ -- 223
+stack$ -- 0
+substring$ -- 364
+swap$ -- 430
+text.length$ -- 7
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 76
+warning$ -- 12
+while$ -- 63
+width$ -- 21
+write$ -- 167
+(There were 7 error messages)
