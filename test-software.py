@@ -30,7 +30,7 @@ def makeFeatureVec(words, model, num_features):
     index2word_set = set(model.index2word)
     wordsNotInDict = []
 
-    words = words.strip()
+    #words = words.strip()
 
     try:
         words = words.split(" ")
@@ -122,7 +122,7 @@ all_results = {}
 #for lang in relations.keys():
 
 #for lang in ["english", "spanish"]:
-for lang in ["dutch"]:
+for lang in ["spanish"]:
     scoring_function = "accuracy"
     truth_file = relations[lang]['truth_file']
     model_file = current_working_dir + model_dir + relations[lang]['model_file']
